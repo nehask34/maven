@@ -18,9 +18,9 @@ pipeline {
         
         stage("deploy to tomcat"){
             steps{
-                sshagent(['131e3021-7894-4110-9a03-6a0aa96fb5cb']) {
-                    sh "scp -o StrictHostKeyChecking=no pipeline/target/myweb.war ec2-user@13.232.33.145:/opt/tomcat/webapps" 
-                }
+                deploy adapters: [tomcat9(credentialsId: '5e5f773a-56e5-43ae-89b8-8d6527edde95', path: '', url: 'http://13.232.33.145:8080/')], contextPath: 'sample', war: '**/*.war'
+                
+               }     
             }
         }
     }
