@@ -1,6 +1,5 @@
 pipeline{
     agent any
-    
     environment{
         PATH = "/opt/maven/bin:$PATH"
     }
@@ -19,9 +18,9 @@ pipeline{
         
         stage("deploy to tomcat"){
             steps{
-                sshagent(['tomcat']) {
+                sshagent(['tomcat-new']){
                      sh """
-                        scp -o StrictHostKeyChecking=no target/myweb.war ec2-user@172.31.46.184:/opt/tomcat/webapps/
+                        ssh -o StrictHostKeyChecking=no target/myweb.war ec2-user@172.31.46.184:/opt/tomcat/webapps/
                         
                         ssh ec2-user@172.31.46.184 /opt/tomcat/bin/shutdown.sh
                         
